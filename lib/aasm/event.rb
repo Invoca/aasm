@@ -16,7 +16,10 @@ module AASM
       _fire(obj, true, to_state, *args) # true indicates test firing
     end
 
-    def fire(obj, to_state=nil, *args)
+    def fire(obj, *args)
+      # Invoca patch: removed "to_state" parameter that was just before *args.
+      # Callers should never be allowed to override the to_state.  That misses the whole point of a state machine.
+      to_state = nil
       _fire(obj, false, to_state, *args) # false indicates this is not a test (fire!)
     end
 
